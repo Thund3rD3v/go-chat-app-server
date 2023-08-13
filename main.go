@@ -3,6 +3,7 @@ package main
 import (
 	"database/sql"
 	"log"
+	"os"
 
 	"github.com/gofiber/contrib/fiberzap/v2"
 	"github.com/gofiber/fiber/v2"
@@ -65,6 +66,14 @@ func main() {
 	app.Post("/auth/signup", routes.SignUp)
 	app.Post("/auth/signin", routes.SignIn)
 
+	port := os.Getenv("PORT")
+
+	if port == "" {
+		port = "3000"
+	}
+
+	port = ":" + port
+
 	// Start Server On Port 3000
-	log.Fatal(app.Listen(":3000"))
+	log.Fatal(app.Listen(port))
 }
