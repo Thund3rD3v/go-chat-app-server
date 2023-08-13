@@ -31,7 +31,7 @@ func SignIn(c *fiber.Ctx) error {
 	}
 
 	// Get token from database
-	token, err := database.GetToken(&username, &password)
+	user, err := database.GetUser(&username, &password)
 
 	if err != nil {
 		if err == sql.ErrNoRows {
@@ -46,5 +46,9 @@ func SignIn(c *fiber.Ctx) error {
 	}
 
 	// Send token back to user
-	return c.JSON(SignInResponse{Token: token})
+	return c.JSON(SignInResponse{
+		Id:       user.ID,
+		Username: username,
+		Token:    user.Token,
+	})
 }

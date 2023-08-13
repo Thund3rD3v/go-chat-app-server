@@ -55,10 +55,9 @@ func SignUp(c *fiber.Ctx) error {
 				return c.Status(409).JSON(ErrorResponse{Message: "User with that username already exists"})
 			}
 		}
-
 		return c.Status(500).JSON(ErrorResponse{Message: "Internal Server Error"})
 	}
 
 	// Send success back to user
-	return c.SendStatus(200)
+	return c.JSON(SuccessResponse{Message: "Successfully signed up"})
 }
